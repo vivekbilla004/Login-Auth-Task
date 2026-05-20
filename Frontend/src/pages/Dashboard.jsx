@@ -1,84 +1,138 @@
-import { useNavigate } from 'react-router-dom';
-import { FiSettings, FiXCircle, FiLogOut } from 'react-icons/fi';
+import { useNavigate } from "react-router-dom";
+import { FiSettings, FiXCircle } from "react-icons/fi";
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/');
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/");
   };
 
-const tableData = [
-    { id: 1, name: 'dil Patil', date: '01/15/2024', role: 'Admin', status: 'Active', avatar: 'https://i.pravatar.cc/150?img=11' },
-    { id: 2, name: 'Aisha Rahman', date: '02/28/2024', role: 'Publisher', status: 'Active', avatar: 'https://i.pravatar.cc/150?img=5' },
-    { id: 3, name: 'Marcus Chen', date: '03/10/2024', role: 'Publisher', status: 'Suspended', avatar: 'https://i.pravatar.cc/150?img=12' },
-    { id: 4, name: 'Sarah Jenkins', date: '03/22/2024', role: 'Reviewer', status: 'Active', avatar: 'https://i.pravatar.cc/150?img=9' },
-    { id: 5, name: 'David Osei', date: '04/05/2024', role: 'Moderator', status: 'Inactive', avatar: 'https://i.pravatar.cc/150?img=13' },
+  const tableData = [
+    {
+      id: 1,
+      name: "dil Patil",
+      date: "01/15/2024",
+      role: "Admin",
+      status: "Active",
+      avatar: "https://i.pravatar.cc/150?img=11",
+    },
+    {
+      id: 2,
+      name: "Aisha Rahman",
+      date: "02/28/2024",
+      role: "Publisher",
+      status: "Active",
+      avatar: "https://i.pravatar.cc/150?img=5",
+    },
+    {
+      id: 3,
+      name: "Marcus Chen",
+      date: "03/10/2024",
+      role: "Publisher",
+      status: "Suspended",
+      avatar: "https://i.pravatar.cc/150?img=12",
+    },
+    {
+      id: 4,
+      name: "Sarah Jenkins",
+      date: "03/22/2024",
+      role: "Reviewer",
+      status: "Active",
+      avatar: "https://i.pravatar.cc/150?img=9",
+    },
+    {
+      id: 5,
+      name: "David Osei",
+      date: "04/05/2024",
+      role: "Moderator",
+      status: "Inactive",
+      avatar: "https://i.pravatar.cc/150?img=13",
+    },
   ];
 
-  const getStatusStyle = (status) => {
-    switch(status) {
-      case 'Active': return 'text-emerald-500 bg-emerald-500/10 border border-emerald-500/20';
-      case 'Suspended': return 'text-rose-500 bg-rose-500/10 border border-rose-500/20';
-      case 'Inactive': return 'text-amber-500 bg-amber-500/10 border border-amber-500/20';
-      default: return 'text-gray-400 bg-gray-500/10';
+  const getStatusDot = (status) => {
+    switch (status) {
+      case "Active":
+        return "bg-[#4caf50]"; 
+      case "Suspended":
+        return "bg-[#f44336]"; 
+      case "Inactive":
+        return "bg-[#ff9800]"; 
+      default:
+        return "bg-gray-400";
     }
   };
 
   return (
-    <div className="w-full max-w-6xl mx-auto p-6 mt-10">
-      <div className="flex justify-between items-center mb-8 bg-[#1f2a44] p-5 rounded-xl shadow-lg ring-1 ring-white/5">
-        <div>
-          <h1 className="text-2xl font-bold text-white">Welcome, {user.name || 'User'}!</h1>
-          <p className="text-[#8f9ab3] text-sm mt-1">Dashboard Overview</p>
-        </div>
-        <button 
+    <div className="min-h-screen bg-[#f5f7fa] p-8 font-sans">
+      <div className="max-w-6xl mx-auto flex justify-between items-center mb-6">
+        <h1 className="text-xl font-semibold text-gray-700">Dashboard</h1>
+        <button
           onClick={handleLogout}
-          className="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-5 py-2.5 rounded-lg transition-colors font-medium border border-rose-500/20"
+          className="text-sm text-gray-500 hover:text-red-500 transition-colors"
         >
-          <FiLogOut className="text-lg" /> Logout
+          Logout {user.name}
         </button>
       </div>
 
-      <div className="bg-[#1f2a44] rounded-xl shadow-2xl overflow-hidden ring-1 ring-white/5">
+      <div className="max-w-6xl mx-auto bg-white rounded shadow-sm border border-gray-100 overflow-hidden pt-4 pb-6 px-6">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
-              <tr className="bg-[#2c3b5a] text-[#8f9ab3] text-xs uppercase tracking-wider font-semibold">
-                <th className="p-5 text-center w-16">#</th>
-                <th className="p-5">Name</th>
-                <th className="p-5">Date Created</th>
-                <th className="p-5">Role</th>
-                <th className="p-5">Status</th>
-                <th className="p-5 text-center">Action</th>
+              <tr className="text-[#566787] text-sm font-semibold border-b-2 border-gray-100">
+                <th className="py-4 pl-4 w-12">#</th>
+                <th className="py-4">Name</th>
+                <th className="py-4">Date Created</th>
+                <th className="py-4">Role</th>
+                <th className="py-4">Status</th>
+                <th className="py-4">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-sm">
+
+            <tbody className="text-[15px] text-[#566787]">
               {tableData.map((row) => (
-                <tr key={row.id} className="hover:bg-[#2c3b5a]/50 transition-colors group">
-                  <td className="p-5 text-center text-[#8f9ab3]">{row.id}</td>
-                  <td className="p-5 flex items-center gap-4">
-                    <img src={row.avatar} alt={row.name} className="w-10 h-10 rounded-full object-cover ring-2 ring-[#2c3b5a]" />
-                    <span className="font-medium text-white">{row.name}</span>
-                  </td>
-                  <td className="p-5 text-[#8f9ab3]">{row.date}</td>
-                  <td className="p-5 text-[#8f9ab3]">{row.role}</td>
-                  <td className="p-5">
-                    <span className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center w-max gap-2 ${getStatusStyle(row.status)}`}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
-                      {row.status}
+                <tr
+                  key={row.id}
+                  className="border-b border-gray-100 hover:bg-gray-50/50 transition-colors"
+                >
+                  <td className="py-4 pl-4">{row.id}</td>
+                  <td className="py-4 flex items-center gap-4">
+                    <img
+                      src={row.avatar}
+                      alt={row.name}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                    <span className="font-medium text-[#292b2c]">
+                      {row.name}
                     </span>
                   </td>
-                  <td className="p-5">
-                    <div className="flex items-center justify-center gap-4">
-                      <button className="text-[#8f9ab3] hover:text-[#7ff0ea] transition-colors" title="Settings">
-                        <FiSettings className="text-lg" />
+                  <td className="py-4">{row.date}</td>
+                  <td className="py-4">{row.role}</td>
+                  <td className="py-4">
+                    <div className="flex items-center gap-2">
+                      <span
+                        className={`w-2.5 h-2.5 rounded-full ${getStatusDot(row.status)}`}
+                      ></span>
+                      {row.status}
+                    </div>
+                  </td>
+                  <td className="py-4">
+                    <div className="flex items-center gap-3">
+                      <button
+                        className="text-[#03a9f4] hover:text-blue-700 transition-colors"
+                        title="Settings"
+                      >
+                        <FiSettings className="text-xl" />
                       </button>
-                      <button className="text-[#8f9ab3] hover:text-rose-400 transition-colors" title="Delete">
-                        <FiXCircle className="text-lg" />
+                      <button
+                        className="text-[#f44336] hover:text-red-700 transition-colors"
+                        title="Delete"
+                      >
+                        <FiXCircle className="text-xl" />
                       </button>
                     </div>
                   </td>
@@ -86,6 +140,37 @@ const tableData = [
               ))}
             </tbody>
           </table>
+        </div>
+
+    
+        <div className="flex items-center justify-between mt-6 text-sm text-[#566787]">
+          <div>
+            
+            Showing <b>5</b> out of <b>25</b> entries
+          </div>
+          <div className="flex items-center gap-1">
+            <button className="px-3 py-1 hover:text-[#03a9f4] transition-colors">
+              Previous
+            </button>
+            <button className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 transition-colors">
+              1
+            </button>
+            <button className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 transition-colors">
+              2
+            </button>
+            <button className="w-8 h-8 flex items-center justify-center rounded bg-[#03a9f4] text-white font-medium shadow-sm">
+              3
+            </button>
+            <button className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 transition-colors">
+              4
+            </button>
+            <button className="w-8 h-8 flex items-center justify-center rounded hover:bg-gray-100 transition-colors">
+              5
+            </button>
+            <button className="px-3 py-1 hover:text-[#03a9f4] transition-colors">
+              Next
+            </button>
+          </div>
         </div>
       </div>
     </div>

@@ -73,7 +73,7 @@ export default function Dashboard() {
         <h1 className="text-xl font-semibold text-gray-700">Dashboard</h1>
         <button
           onClick={handleLogout}
-          className="text-sm text-gray-500 hover:text-red-500 transition-colors"
+          className="text-sm text-gray-500 hover:text-red-500 transition-colors font-medium"
         >
           Logout {user.name}
         </button>

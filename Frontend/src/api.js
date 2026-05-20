@@ -1,7 +1,6 @@
 import axios from "axios"
 
-const apiUrl = import.meta.env.VITE_API_URL|| "http://localhost:5000/api/auth"
-
+const apiUrl = "https://login-auth-task.onrender.com/api/auth"
 
 const API = axios.create({
   baseURL: apiUrl
